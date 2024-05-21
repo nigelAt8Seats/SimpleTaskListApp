@@ -15,11 +15,23 @@ const App: React.FC = () => {
   ]);
   const [newTask, setNewTask] = useState<string>("");
 
-  const addTask = () => {
+  const addTask = async () => {
     if (newTask.trim()) {
+      await saveTasksToServer(tasks);
       setTasks([...tasks, { id: tasks.length + 1, name: newTask }]);
       setNewTask("");
     }
+  };
+
+  const saveTasksToServer = async (tasks: any[]) => {
+    return await new Promise<string>((resolve, reject) => {
+      // Simulating a really show server save
+      setTimeout(() => {
+        // Here you would normally save tasks to the server
+        console.log("Tasks saved to server:", tasks);
+        resolve("ok");
+      }, 1000);
+    });
   };
 
   return (
